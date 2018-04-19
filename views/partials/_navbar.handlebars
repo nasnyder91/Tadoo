@@ -1,0 +1,22 @@
+<nav class="green lighten-3">
+  <div class="container">
+    <div class="nav-wrapper">
+      <a href="/" class="brand-logo center">Tadoo</a>
+      <ul class="right">
+        {{#if user}}
+          <li><a class="dropdown-trigger" href="#!" data-target="userDropdown">Welcome {{user.name}}<i class="material-icons right">arrow_drop_down</i></a></li>
+        {{else}}
+          <li><a href="/users/login">Login</a></li>
+          <li><a href="/users/register">Register</a></li>
+        {{/if}}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<ul id="userDropdown" class="dropdown-content">
+  <li><a href="/todos">Todos</a></li>
+  <!-- <li><a href="#!">two</a></li> -->
+  <li class="divider"></li>
+  <li><a href="/users/logout">Logout</a></li>
+</ul>
