@@ -15,8 +15,12 @@ const TodoSchema = new Schema({
     required: false
   },
   dueTime: {
-    type: Date,
+    type: String,
     required: false
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'users'
   },
   date: {
     type: Date,
