@@ -1,0 +1,12 @@
+.todo{
+  height: 180px;
+  margin-bottom: 50px;
+}
+
+.todo:hover{
+  cursor: pointer;
+}
+
+.zoomTodoBtn{
+  position: absolute;
+}

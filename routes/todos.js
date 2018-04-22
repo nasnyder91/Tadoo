@@ -39,7 +39,57 @@ router.post('/', ensureAuthenticated, (req, res) => {
   new Todo(newTodo)
     .save()
     .then(todo => {
-      res.redirect('/todos/index');
+      res.redirect('/');
+    });
+});
+
+// Edit Todo Route
+router.get('/edit/:id', ensureAuthenticated, (req, res) => {
+  Todo.findOne({
+    _id: req.params.id
+  })
+    .then(todo => {
+      if(todo.user != req.user.id){
+        res.redirect('/');
+      } else{
+        res.render('todos/edit', {
+          todo: todo
+        });
+      }
+    })
+});
+
+// Edit Form Submit Route
+router.put('/:id', ensureAuthenticated, (req, res) => {
+  Todo.findOne({
+    _id: req.params.id
+  })
+    .then(todo => {
+      todo.title = req.body.title;
+      todo.description = req.body.description;
+      if(req.body.date){
+        const date = new Date(moment(req.body.date, 'MMM DD, YYYY', true).valueOf());
+        todo.dueDate = date;
+      }
+      if(req.body.time){
+        todo.dueTime = req.body.time;
+      }
+
+      todo.save()
+        .then(todo => {
+          console.log('Todo has been updated');
+          res.redirect('/');
+        });
+    });
+});
+
+// Delete Todo Route
+router.delete('/:id', ensureAuthenticated, (req, res) => {
+  Todo.remove({
+    _id: req.params.id
+  })
+    .then(() => {
+      res.redirect('/');
     });
 });
 

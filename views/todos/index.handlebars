@@ -2,17 +2,56 @@
 <div class="row">
   {{#each todos}}
     <div class="col s12 m4">
-      <div class="card">
+      <div class="card green accent-1 hoverable todo" id="{{id}}" onclick="showTodoModal(event, '{{title}}', '{{description}}', {{#if dueDate}}'{{formatDate dueDate}}'{{else}}null{{/if}}, {{#if dueTime}}'{{dueTime}}'{{else}}null{{/if}})">
         <div class="card-image">
-          <a href="" class="btn-floating halfway-fab yellow"><i class="material-icons">edit</i></a>
+          <a href="/todos/edit/{{id}}" class="btn-floating halfway-fab yellow waves-effect"><i class="material-icons">edit</i></a>
         </div>
+        <form action="/todos/{{id}}?_method=DELETE" method="post">
+          <input type="hidden" name="_method" value="DELETE">
+          <button type="submit" class="btn-floating halfway-fab red waves-effect waves-light"><i class="material-icons">delete</i></button>
+        </form>
         <div class="card-content">
-          <span class="card-title">{{title}}</span>
-          <p>{{description}}</p>
+          <div class="row">
+              <div class="col s12">
+                <div class="row">
+                  <div class="col s4">
+                    {{#if dueDate}}
+                      <span class="card-title">{{formatDate dueDate}}</span>
+                    {{/if}}
+                    {{#if dueTime}}
+                      <span class="card-title">{{dueTime}}</span>
+                    {{/if}}
+                  </div>
+                  <div class="todoBody col s8">
+                    <span class="card-title">{{title}}</span>
+                    <p>{{truncate description 125}}</p>
+                  </div>
+                </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   {{else}}
     <p>You have nothing Tadoo!  Make a new Tadoo by clicking the add button in the bottom right.</p>
   {{/each}}
+</div>
+
+<div id="todoModal" class="modal green accent-1">
+  <div class="modal-content">
+    <div class="row">
+        <div class="col s12">
+          <div class="row">
+            <div class="col s4">
+              <p id="modalDate"></p>
+              <p id="modalTime"></p>
+            </div>
+            <div class="col s8">
+              <h4 id="modalTitle"></h4>
+              <p id="modalDescription"></p>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
 </div>

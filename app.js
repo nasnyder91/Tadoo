@@ -1,5 +1,7 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
+const methodOverride = require('method-override');
+const path = require('path');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -11,10 +13,19 @@ const app = express();
 require('./models/User');
 require('./models/Todo');
 
+// Set static folder
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Mongoose connect
 mongoose.connect('mongodb://Nick:tadoo10536087@ds149279.mlab.com:49279/tadoo_dev')
   .then(() => console.log('MongoDB connected...'))
   .catch(err => console.log(err));
+
+// Handlebar Helpers
+const {
+  formatDate,
+  truncate
+} = require('./helpers/hbs');
 
 // Load Routes
 const index = require('./routes/index');
@@ -26,6 +37,10 @@ require('./config/passport')(passport);
 
 // Express Handlebars Middleware
 app.engine('handlebars', exphbs({
+  helpers: {
+    formatDate: formatDate,
+    truncate: truncate
+  },
   defaultLayout: 'main'
 }));
 app.set('view engine', 'handlebars');
@@ -40,6 +55,9 @@ app.use(session({
 // Body Parser Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// Method Override Middleware
+app.use(methodOverride('_method'));
 
 // Passport Middleware
 app.use(passport.initialize());
