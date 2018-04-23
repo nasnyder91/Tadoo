@@ -1,8 +1,19 @@
 <h1>Here is what you have Tadoo:</h1>
+<a class="dropdown-trigger btn" id="sortDrop" data-target="sortDropdown">Sort Todos<i class="material-icons right">arrow_drop_down</i></a>
+
+<ul id="sortDropdown" class="dropdown-content">
+  <li><a href="/todos?sort=date_asc">Date: Asc</a></li>
+  <li><a href="/todos?sort=date_desc">Date: Desc</a></li>
+  <li><a href="/todos?sort=title_abc">Title: ABC</a></li>
+  <li><a href="/todos?sort=title_cba">Title: CBA</a></li>
+  <li><a href="/todos?sort=date_created_asc">Date Created: Asc</a></li>
+  <li><a href="/todos?sort=date_created_desc">Date Created: Desc</a></li>
+
+</ul>
 <div class="row">
   {{#each todos}}
     <div class="col s12 m4">
-      <div class="card green accent-1 hoverable todo" id="{{id}}" onclick="showTodoModal(event, '{{title}}', '{{description}}', {{#if dueDate}}'{{formatDate dueDate}}'{{else}}null{{/if}}, {{#if dueTime}}'{{dueTime}}'{{else}}null{{/if}})">
+      <div class="card green accent-1 hoverable todo" id="{{id}}" onclick="showTodoModal(event, '{{title}}', '{{description}}', {{#if dueDate}}'{{formatDate dueDate}}'{{else}}null{{/if}}, {{#if dueTime}}'{{formatTime dueTime}}'{{else}}null{{/if}})">
         <div class="card-image">
           <a href="/todos/edit/{{id}}" class="btn-floating halfway-fab yellow waves-effect"><i class="material-icons">edit</i></a>
         </div>
@@ -19,17 +30,18 @@
                       <span class="card-title">{{formatDate dueDate}}</span>
                     {{/if}}
                     {{#if dueTime}}
-                      <span class="card-title">{{dueTime}}</span>
+                      <span class="card-title">{{formatTime dueTime}}</span>
                     {{/if}}
                   </div>
                   <div class="todoBody col s8">
-                    <span class="card-title">{{title}}</span>
+                    <span class="card-title">{{truncate title 24}}</span>
                     <p>{{truncate description 125}}</p>
                   </div>
                 </div>
             </div>
           </div>
         </div>
+        <small class="dateCreated left green-text text-lighten-1">Date Created: {{formatDate date}}</small>
       </div>
     </div>
   {{else}}

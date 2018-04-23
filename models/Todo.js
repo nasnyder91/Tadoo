@@ -15,7 +15,7 @@ const TodoSchema = new Schema({
     required: false
   },
   dueTime: {
-    type: String,
+    type: Date,
     required: false
   },
   user: {

@@ -10,3 +10,9 @@
 .zoomTodoBtn{
   position: absolute;
 }
+
+.dateCreated{
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+}

@@ -4,6 +4,9 @@ module.exports = {
   formatDate: function(date){
     return moment(date).format('MMM DD, YYYY');
   },
+  formatTime: function(time){
+    return moment(time).format('hh:mm A');
+  },
   truncate: function(str, len){
     if(str.length > len && str.length > 0){
       var new_str = str + " ";

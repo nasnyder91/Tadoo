@@ -24,7 +24,8 @@ router.get('/register', (req, res) => {
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {
     successRedirect: '/todos',
-    failureRedirect: '/users/login'
+    failureRedirect: '/users/login',
+    failureFlash: true
   })(req,res,next);
 });
 
@@ -41,7 +42,6 @@ router.post('/register', (req, res) => {
   }
 
   if(errors.length > 0){
-    console.log(errors);
     res.render('users/register', {
       errors: errors,
       name: req.body.name,
@@ -53,7 +53,7 @@ router.post('/register', (req, res) => {
     User.findOne({email: req.body.email})
       .then(user => {
         if(user){
-          console.log('ERR: Email already registered');
+          req.flash('error_msg', 'Email Already Registered');
           res.redirect('/users/login');
         } else{
           const newUser = new User({
@@ -67,7 +67,7 @@ router.post('/register', (req, res) => {
               newUser.password = hash;
               newUser.save()
                 .then(user => {
-                  console.log('User now registered and can login!');
+                  req.flash('success_msg', 'User now registered and can login!');
                   res.redirect('/users/login');
                 })
                 .catch(err => {
@@ -83,7 +83,7 @@ router.post('/register', (req, res) => {
 
 router.get('/logout', (req, res) => {
   req.logout();
-  console.log('You are now logged out');
+  req.flash('success_msg', 'You have logged out successfully');
   res.redirect('/');
 });
 

@@ -3,6 +3,7 @@ const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
 const path = require('path');
 const session = require('express-session');
+const flash = require('connect-flash');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
@@ -24,6 +25,7 @@ mongoose.connect('mongodb://Nick:tadoo10536087@ds149279.mlab.com:49279/tadoo_dev
 // Handlebar Helpers
 const {
   formatDate,
+  formatTime,
   truncate
 } = require('./helpers/hbs');
 
@@ -39,6 +41,7 @@ require('./config/passport')(passport);
 app.engine('handlebars', exphbs({
   helpers: {
     formatDate: formatDate,
+    formatTime: formatTime,
     truncate: truncate
   },
   defaultLayout: 'main'
@@ -63,8 +66,14 @@ app.use(methodOverride('_method'));
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Connect Flash Middleware
+app.use(flash());
+
 // Global Variables
 app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
   res.locals.user = req.user || null;
   next();
 });

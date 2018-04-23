@@ -4,7 +4,7 @@
       <a href="/" class="brand-logo center">Tadoo</a>
       <ul class="right">
         {{#if user}}
-          <li><a class="dropdown-trigger" href="#!" data-target="userDropdown">Welcome {{user.name}}<i class="material-icons right">arrow_drop_down</i></a></li>
+          <li><a class="dropdown-trigger" id="navDrop" href="#!" data-target="userDropdown">Welcome {{user.name}}<i class="material-icons right">arrow_drop_down</i></a></li>
         {{else}}
           <li><a href="/users/login">Login</a></li>
           <li><a href="/users/register">Register</a></li>
