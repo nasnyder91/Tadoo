@@ -11,6 +11,7 @@ const passport = require('passport');
 
 const app = express();
 
+// create mongodb store
 const store = new MongoDBStore(
   {
     uri: 'mongodb://Nick:tadoo10536087@ds149279.mlab.com:49279/tadoo_dev',
@@ -31,8 +32,11 @@ require('./models/Todo');
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Load db config
+const db = require('./config/database');
+
 // Mongoose connect
-mongoose.connect('mongodb://Nick:tadoo10536087@ds149279.mlab.com:49279/tadoo_dev')
+mongoose.connect(db.mongoURI)
   .then(() => console.log('MongoDB connected...'))
   .catch(err => console.log(err));
 
