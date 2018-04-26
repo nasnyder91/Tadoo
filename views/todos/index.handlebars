@@ -11,7 +11,7 @@
 </ul>
 <div class="row">
   {{#each todos}}
-    <div class="col s12 m4">
+    <div class="col s12 l6 xl4">
       <div class="card green accent-1 hoverable todo" id="{{id}}" onclick="showTodoModal(event, '{{title}}', '{{description}}', {{#if dueDate}}'{{formatDate dueDate}}'{{else}}null{{/if}}, {{#if dueTime}}'{{formatTime dueTime}}'{{else}}null{{/if}}, '{{id}}')">
         <div class="card-image">
           <a href="/todos/edit/{{id}}" class="editBtn btn-floating halfway-fab yellow waves-effect"><i class="material-icons">edit</i></a>
@@ -21,7 +21,7 @@
           <div class="row">
               <div class="col s12">
                 <div class="row">
-                  <div class="col s4">
+                  <div class="col s12 m4">
                     {{#if dueDate}}
                       <span class="card-title">{{formatDate dueDate}}</span>
                       {{#if dueTime}}
@@ -32,9 +32,9 @@
                       <span class="card-title">{{formatTime dueTime}}</span>
                     {{/if}}
                   </div>
-                  <div class="todoBody col s8">
+                  <div class="todoBody col s12 m8">
                     <span class="card-title truncate">{{title}}</span>
-                    <p>{{truncate description 125}}</p>
+                    <p>{{truncate description 115}}</p>
                   </div>
                 </div>
             </div>

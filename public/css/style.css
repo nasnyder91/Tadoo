@@ -23,7 +23,7 @@ main {
 }
 
 .todo{
-  height: 180px;
+  height: 200px;
   margin-bottom: 50px;
 }
 
@@ -70,7 +70,7 @@ main {
 }
 
 .fixed-action-btn{
-  bottom: 60px;
+  bottom: 80px;
 }
 
 .flashMsg{
@@ -90,4 +90,31 @@ main {
 
 .zoomTodoBtn{
   position: absolute;
+}
+
+
+@media screen and (max-width: 993px) {
+    .todo{
+      /* min-height: 275px; */
+      height: auto;
+    }
+}
+@media screen and (min-width: 1300px) and (max-width: 1500px) {
+    .todo{
+      height: 250px;
+    }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1300px) {
+    .todo{
+      height: 300px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+  nav .brand-logo{
+    left: 5px !important;
+    -webkit-transform: translateX(0) !important;
+    transform: translateX(0) !important;
+  }
 }
