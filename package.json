@@ -4,7 +4,7 @@
   "description": "Login, create, and save todos",
   "main": "app.js",
   "scripts": {
-    "start": "SET NODE_ENV=DEVELOPMENT&& NODE app.js"
+    "start": "NODE app.js"
   },
   "author": "Nick Snyder",
   "license": "MIT",
