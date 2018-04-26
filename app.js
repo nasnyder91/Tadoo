@@ -3,12 +3,26 @@ const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
 const path = require('path');
 const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
 const flash = require('connect-flash');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
 
 const app = express();
+
+const store = new MongoDBStore(
+  {
+    uri: 'mongodb://Nick:tadoo10536087@ds149279.mlab.com:49279/tadoo_dev',
+    databaseName: 'tadoo_dev',
+    collection: 'sessions'
+  }
+);
+
+store.on('error', (err) => {
+  assert.ifError(err);
+  assert.ok(false);
+});
 
 // Load models
 require('./models/User');
@@ -26,7 +40,8 @@ mongoose.connect('mongodb://Nick:tadoo10536087@ds149279.mlab.com:49279/tadoo_dev
 const {
   formatDate,
   formatTime,
-  truncate
+  truncate,
+  stripTags
 } = require('./helpers/hbs');
 
 // Load Routes
@@ -42,7 +57,8 @@ app.engine('handlebars', exphbs({
   helpers: {
     formatDate: formatDate,
     formatTime: formatTime,
-    truncate: truncate
+    truncate: truncate,
+    stripTags: stripTags
   },
   defaultLayout: 'main'
 }));
@@ -51,6 +67,10 @@ app.set('view engine', 'handlebars');
 // Express Session Middleware
 app.use(session({
   secret: 'secret',
+  cookie: {
+            maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
+          },
+  store: store,
   resave: true,
   saveUninitialized: true
 }));

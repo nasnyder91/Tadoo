@@ -8,19 +8,15 @@
   <li><a href="/todos?sort=title_cba">Title: CBA</a></li>
   <li><a href="/todos?sort=date_created_asc">Date Created: Asc</a></li>
   <li><a href="/todos?sort=date_created_desc">Date Created: Desc</a></li>
-
 </ul>
 <div class="row">
   {{#each todos}}
     <div class="col s12 m4">
-      <div class="card green accent-1 hoverable todo" id="{{id}}" onclick="showTodoModal(event, '{{title}}', '{{description}}', {{#if dueDate}}'{{formatDate dueDate}}'{{else}}null{{/if}}, {{#if dueTime}}'{{formatTime dueTime}}'{{else}}null{{/if}})">
+      <div class="card green accent-1 hoverable todo" id="{{id}}" onclick="showTodoModal(event, '{{title}}', '{{description}}', {{#if dueDate}}'{{formatDate dueDate}}'{{else}}null{{/if}}, {{#if dueTime}}'{{formatTime dueTime}}'{{else}}null{{/if}}, '{{id}}')">
         <div class="card-image">
-          <a href="/todos/edit/{{id}}" class="btn-floating halfway-fab yellow waves-effect"><i class="material-icons">edit</i></a>
+          <a href="/todos/edit/{{id}}" class="editBtn btn-floating halfway-fab yellow waves-effect"><i class="material-icons">edit</i></a>
         </div>
-        <form action="/todos/{{id}}?_method=DELETE" method="post">
-          <input type="hidden" name="_method" value="DELETE">
-          <button type="submit" class="btn-floating halfway-fab red waves-effect waves-light"><i class="material-icons">delete</i></button>
-        </form>
+        <button class="deleteBtn btn-floating halfway-fab red waves-effect waves-light"><i class="material-icons" onclick="deleteBtnHandler(event, '{{id}}')">delete</i></button>
         <div class="card-content">
           <div class="row">
               <div class="col s12">
@@ -28,13 +24,16 @@
                   <div class="col s4">
                     {{#if dueDate}}
                       <span class="card-title">{{formatDate dueDate}}</span>
+                      {{#if dueTime}}
+                        <div class="divider light-green darken-2"></div>
+                      {{/if}}
                     {{/if}}
                     {{#if dueTime}}
                       <span class="card-title">{{formatTime dueTime}}</span>
                     {{/if}}
                   </div>
                   <div class="todoBody col s8">
-                    <span class="card-title">{{truncate title 24}}</span>
+                    <span class="card-title truncate">{{title}}</span>
                     <p>{{truncate description 125}}</p>
                   </div>
                 </div>
@@ -55,8 +54,20 @@
         <div class="col s12">
           <div class="row">
             <div class="col s4">
-              <p id="modalDate"></p>
-              <p id="modalTime"></p>
+              <div class="row">
+                <div id="dateIconDiv" class="col s2">
+                </div>
+                <div class="col s10">
+                  <h5 class="modalDate" id="modalDate"></h5>
+                </div>
+              </div>
+              <div class="row">
+                <div id="timeIconDiv" class="col s2">
+                </div>
+                <div class="col s10">
+                  <h5 class="modalDate" id="modalTime"></h5>
+                </div>
+              </div>
             </div>
             <div class="col s8">
               <h4 id="modalTitle"></h4>
@@ -65,5 +76,8 @@
           </div>
       </div>
     </div>
+  </div>
+  <div class="modal-footer green lighten-2">
+    <a href="" id="modalEditBtn" class="btn yellow waves-effect black-text"><i class="material-icons">edit</i> Edit Tadoo</a>
   </div>
 </div>

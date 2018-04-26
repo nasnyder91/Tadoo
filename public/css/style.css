@@ -1,3 +1,27 @@
+body,html{
+    width: 100% !important;
+    height: 100% !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    margin: 0px;
+    padding: 0px;
+    overflow-x:hidden;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    background-color: #f9fbe7;
+}
+
+.dateCreated{
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
 .todo{
   height: 180px;
   margin-bottom: 50px;
@@ -7,12 +31,63 @@
   cursor: pointer;
 }
 
-.zoomTodoBtn{
-  position: absolute;
+.welcome{
+  margin-top: 3%;
 }
 
-.dateCreated{
+.login{
+  margin-top: 8%;
+}
+.register{
+  margin-top: 3%;
+}
+
+.modalDate{
+  margin-left: 10px !important;
+}
+
+.modal-footer{
+  display: inline-flex;
+  justify-content:space-around;
+}
+
+.deleteCover{
   position: absolute;
-  bottom: 5px;
-  left: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 100;
+}
+
+.deleteConfirmBtns{
+  display: flex;
+  justify-content: space-around;
+  bottom: 20px;
+}
+
+.fixed-action-btn{
+  bottom: 60px;
+}
+
+.flashMsg{
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.page-footer{
+  border-top: black 1px solid;
+  padding: 0;
+}
+
+.moreBtn:hover{
+  color: black !important;
+}
+
+.zoomTodoBtn{
+  position: absolute;
 }

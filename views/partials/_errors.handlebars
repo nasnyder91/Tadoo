@@ -1,9 +1,13 @@
 {{#if error}}
-  <div class="card red">{{error}}</div>
+  <div class="flashMsg red z-depth-3">
+    <h5>{{error}}</h5>
+  </div>
 {{/if}}
 
 {{#each errors}}
-  <div class="card red">{{text}}</div>
+  <div class="flashMsg red z-depth-3">
+    <h5>{{text}}</h5>
+  </div>
 {{else}}
 
 {{/each}}
