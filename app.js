@@ -11,11 +11,14 @@ const passport = require('passport');
 
 const app = express();
 
+// Load db config
+const db = require('./config/database');
+
 // create mongodb store
 const store = new MongoDBStore(
   {
-    uri: 'mongodb://Nick:tadoo10536087@ds149279.mlab.com:49279/tadoo_dev',
-    databaseName: 'tadoo_dev',
+    uri: db.mongoURI,
+    databaseName: db.dbName,
     collection: 'sessions'
   }
 );
@@ -31,9 +34,6 @@ require('./models/Todo');
 
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Load db config
-const db = require('./config/database');
 
 // Mongoose connect
 mongoose.connect(db.mongoURI)
